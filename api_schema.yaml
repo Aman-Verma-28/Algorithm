@@ -133,7 +133,7 @@ paths:
   /OAuth/password/reset/:
     post:
       operationId: OAuth_password_reset_create
-      summary: Calls Django Auth PasswordResetForm save method.
+      summary: Calls Django Auth PasswordResetForm save method and deleted.
       description: |-
         Accepts the following POST parameters: email
         Returns the success/fail message.
