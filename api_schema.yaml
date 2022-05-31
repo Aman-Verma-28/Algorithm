@@ -1,0 +1,3535 @@
+swagger: '2.0'
+info:
+  title: Snippets API
+  description: Test description
+  termsOfService: https://www.google.com/policies/terms/
+  contact:
+    email: contact@snippets.local
+  license:
+    name: BSD License
+  version: v1
+host: 127.0.0.1:8000
+schemes:
+  - http
+basePath: /
+consumes:
+  - application/json
+produces:
+  - application/json
+securityDefinitions:
+  Basic:
+    type: basic
+security:
+  - Basic: []
+paths:
+  /OAuth/apple/:
+    post:
+      operationId: OAuth_apple_create
+      description: ''
+      parameters:
+        - name: data
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/SocialLogin'
+      responses:
+        '201':
+          description: ''
+          schema:
+            $ref: '#/definitions/SocialLogin'
+      tags:
+        - OAuth
+    parameters: []
+  /OAuth/google/:
+    post:
+      operationId: OAuth_google_create
+      description: ''
+      parameters:
+        - name: data
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/SocialLogin'
+      responses:
+        '201':
+          description: ''
+          schema:
+            $ref: '#/definitions/SocialLogin'
+      tags:
+        - OAuth
+    parameters: []
+  /OAuth/login/:
+    post:
+      operationId: OAuth_login_create
+      description: |-
+        Check the credentials and return the REST Token
+        if the credentials are valid and authenticated.
+        Calls Django Auth login method to register User ID
+        in Django session framework
+
+        Accept the following POST parameters: username, password
+        Return the REST Framework Token Object's key.
+      parameters:
+        - name: data
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/Login'
+      responses:
+        '201':
+          description: ''
+          schema:
+            $ref: '#/definitions/Login'
+      tags:
+        - OAuth
+    parameters: []
+  /OAuth/logout/:
+    get:
+      operationId: OAuth_logout_list
+      summary: |-
+        Calls Django logout method and delete the Token object
+        assigned to the current User object.
+      description: Accepts/Returns nothing.
+      parameters: []
+      responses:
+        '200':
+          description: ''
+      tags:
+        - OAuth
+    post:
+      operationId: OAuth_logout_create
+      summary: |-
+        Calls Django logout method and delete the Token object
+        assigned to the current User object.
+      description: Accepts/Returns nothing.
+      parameters: []
+      responses:
+        '201':
+          description: ''
+      tags:
+        - OAuth
+    parameters: []
+  /OAuth/password/change/:
+    post:
+      operationId: OAuth_password_change_create
+      summary: Calls Django Auth SetPasswordForm save method.
+      description: |-
+        Accepts the following POST parameters: new_password1, new_password2
+        Returns the success/fail message.
+      parameters:
+        - name: data
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/PasswordChange'
+      responses:
+        '201':
+          description: ''
+          schema:
+            $ref: '#/definitions/PasswordChange'
+      tags:
+        - OAuth
+    parameters: []
+  /OAuth/password/reset/:
+    post:
+      operationId: OAuth_password_reset_create
+      summary: Calls Django Auth PasswordResetForm save method.
+      description: |-
+        Accepts the following POST parameters: email
+        Returns the success/fail message.
+      parameters:
+        - name: data
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/PasswordReset'
+      responses:
+        '201':
+          description: ''
+          schema:
+            $ref: '#/definitions/PasswordReset'
+      tags:
+        - OAuth
+    parameters: []
+  /OAuth/password/reset/confirm/:
+    post:
+      operationId: OAuth_password_reset_confirm_create
+      summary: |-
+        Password reset e-mail link is confirmed, therefore
+        this resets the user's password.
+      description: |-
+        Accepts the following POST parameters: token, uid,
+            new_password1, new_password2
+        Returns the success/fail message.
+      parameters:
+        - name: data
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/PasswordResetConfirm'
+      responses:
+        '201':
+          description: ''
+          schema:
+            $ref: '#/definitions/PasswordResetConfirm'
+      tags:
+        - OAuth
+    parameters: []
+  /OAuth/token/refresh/:
+    post:
+      operationId: OAuth_token_refresh_create
+      description: ''
+      parameters:
+        - name: data
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/CookieTokenRefresh'
+      responses:
+        '201':
+          description: ''
+          schema:
+            $ref: '#/definitions/CookieTokenRefresh'
+      tags:
+        - OAuth
+    parameters: []
+  /OAuth/token/verify/:
+    post:
+      operationId: OAuth_token_verify_create
+      description: |-
+        Takes a token and indicates if it is valid.  This view provides no
+        information about a token's fitness for a particular use.
+      parameters:
+        - name: data
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/TokenVerify'
+      responses:
+        '201':
+          description: ''
+          schema:
+            $ref: '#/definitions/TokenVerify'
+      tags:
+        - OAuth
+    parameters: []
+  /OAuth/user/:
+    get:
+      operationId: OAuth_user_read
+      summary: |-
+        Reads and updates UserModel fields
+        Accepts GET, PUT, PATCH methods.
+      description: |-
+        Default accepted fields: username, first_name, last_name
+        Default display fields: pk, username, email, first_name, last_name
+        Read-only fields: pk, email
+
+        Returns UserModel fields.
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          schema:
+            $ref: '#/definitions/UserDetails'
+      tags:
+        - OAuth
+    put:
+      operationId: OAuth_user_update
+      summary: |-
+        Reads and updates UserModel fields
+        Accepts GET, PUT, PATCH methods.
+      description: |-
+        Default accepted fields: username, first_name, last_name
+        Default display fields: pk, username, email, first_name, last_name
+        Read-only fields: pk, email
+
+        Returns UserModel fields.
+      parameters:
+        - name: data
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/UserDetails'
+      responses:
+        '200':
+          description: ''
+          schema:
+            $ref: '#/definitions/UserDetails'
+      tags:
+        - OAuth
+    patch:
+      operationId: OAuth_user_partial_update
+      summary: |-
+        Reads and updates UserModel fields
+        Accepts GET, PUT, PATCH methods.
+      description: |-
+        Default accepted fields: username, first_name, last_name
+        Default display fields: pk, username, email, first_name, last_name
+        Read-only fields: pk, email
+
+        Returns UserModel fields.
+      parameters:
+        - name: data
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/UserDetails'
+      responses:
+        '200':
+          description: ''
+          schema:
+            $ref: '#/definitions/UserDetails'
+      tags:
+        - OAuth
+    parameters: []
+  /account/doctor/send-login-otp/:
+    post:
+      operationId: account_doctor_send-login-otp_create
+      description: ''
+      parameters: []
+      responses:
+        '201':
+          description: ''
+      tags:
+        - account
+    parameters: []
+  /account/doctor/verify-login-otp/:
+    post:
+      operationId: account_doctor_verify-login-otp_create
+      description: ''
+      parameters: []
+      responses:
+        '201':
+          description: ''
+      tags:
+        - account
+    parameters: []
+  /account/doctor/{mobile_no}/:
+    get:
+      operationId: account_doctor_read
+      description: ''
+      parameters: []
+      responses:
+        '200':
+          description: ''
+      tags:
+        - account
+    parameters:
+      - name: mobile_no
+        in: path
+        required: true
+        type: string
+  /account/exists/:
+    get:
+      operationId: account_exists_list
+      description: ''
+      parameters: []
+      responses:
+        '200':
+          description: ''
+      tags:
+        - account
+    parameters: []
+  /account/login/redirect/:
+    get:
+      operationId: account_login_redirect_list
+      description: ''
+      parameters: []
+      responses:
+        '200':
+          description: ''
+      tags:
+        - account
+    parameters: []
+  /account/loginnew/:
+    post:
+      operationId: account_loginnew_create
+      description: ''
+      parameters: []
+      responses:
+        '201':
+          description: ''
+      tags:
+        - account
+    parameters: []
+  /account/logout-hard/:
+    get:
+      operationId: account_logout-hard_list
+      description: ''
+      parameters: []
+      responses:
+        '200':
+          description: ''
+      tags:
+        - account
+    parameters: []
+  /account/logout/:
+    get:
+      operationId: account_logout_list
+      description: ''
+      parameters: []
+      responses:
+        '200':
+          description: ''
+      tags:
+        - account
+    parameters: []
+  /account/patient/send-login-otp/:
+    post:
+      operationId: account_patient_send-login-otp_create
+      description: ''
+      parameters: []
+      responses:
+        '201':
+          description: ''
+      tags:
+        - account
+    parameters: []
+  /account/patient/verify-login-otp/:
+    post:
+      operationId: account_patient_verify-login-otp_create
+      description: ''
+      parameters: []
+      responses:
+        '201':
+          description: ''
+      tags:
+        - account
+    parameters: []
+  /account/patient/{mobile_no}/:
+    get:
+      operationId: account_patient_read
+      description: ''
+      parameters: []
+      responses:
+        '200':
+          description: ''
+      tags:
+        - account
+    parameters:
+      - name: mobile_no
+        in: path
+        required: true
+        type: string
+  /account/register/:
+    post:
+      operationId: account_register_create
+      description: ''
+      parameters: []
+      responses:
+        '201':
+          description: ''
+      tags:
+        - account
+    parameters: []
+  /account/register/doctor/:
+    post:
+      operationId: account_register_doctor_create
+      description: ''
+      parameters: []
+      responses:
+        '201':
+          description: ''
+      tags:
+        - account
+    parameters: []
+  /account/register/patient-by-doctor-appt/:
+    post:
+      operationId: account_register_patient-by-doctor-appt_create
+      description: ''
+      parameters: []
+      responses:
+        '201':
+          description: ''
+      tags:
+        - account
+    parameters: []
+  /account/register_nurse/:
+    post:
+      operationId: account_register_nurse_create
+      description: ''
+      parameters: []
+      responses:
+        '201':
+          description: ''
+      tags:
+        - account
+    parameters: []
+  /account/update-name/:
+    post:
+      operationId: account_update-name_create
+      description: ''
+      parameters: []
+      responses:
+        '201':
+          description: ''
+      tags:
+        - account
+    parameters: []
+  /account/useronboarding/:
+    get:
+      operationId: account_useronboarding_list
+      description: ''
+      parameters: []
+      responses:
+        '200':
+          description: ''
+      tags:
+        - account
+    post:
+      operationId: account_useronboarding_create
+      description: ''
+      parameters: []
+      responses:
+        '201':
+          description: ''
+      tags:
+        - account
+    parameters: []
+  /account/validate_otp/:
+    post:
+      operationId: account_validate_otp_create
+      description: ''
+      parameters: []
+      responses:
+        '201':
+          description: ''
+      tags:
+        - account
+    parameters: []
+  /account/validate_phone/:
+    post:
+      operationId: account_validate_phone_create
+      description: ''
+      parameters: []
+      responses:
+        '201':
+          description: ''
+      tags:
+        - account
+    parameters: []
+  /api/analytics/patient-stats/:
+    get:
+      operationId: api_analytics_patient-stats_list
+      description: ''
+      parameters: []
+      responses:
+        '200':
+          description: ''
+      tags:
+        - api
+    parameters: []
+  /api/appointment/:
+    get:
+      operationId: api_appointment_list
+      description: ''
+      parameters: []
+      responses:
+        '200':
+          description: ''
+      tags:
+        - api
+    parameters: []
+  /api/appointment/appointment-can-start/:
+    get:
+      operationId: api_appointment_appointment-can-start_list
+      description: ''
+      parameters: []
+      responses:
+        '200':
+          description: ''
+      tags:
+        - api
+    parameters: []
+  /api/appointment/can-start-online-appointment/:
+    post:
+      operationId: api_appointment_can-start-online-appointment_create
+      description: ''
+      parameters: []
+      responses:
+        '201':
+          description: ''
+      tags:
+        - api
+    parameters: []
+  /api/appointment/change-user-details/:
+    post:
+      operationId: api_appointment_change-user-details_create
+      description: ''
+      parameters: []
+      responses:
+        '201':
+          description: ''
+      tags:
+        - api
+    parameters: []
+  /api/appointment/create/:
+    post:
+      operationId: api_appointment_create_create
+      description: ''
+      parameters: []
+      responses:
+        '201':
+          description: ''
+      tags:
+        - api
+    parameters: []
+  /api/appointment/delete/{id}/:
+    delete:
+      operationId: api_appointment_delete_delete
+      description: ''
+      parameters: []
+      responses:
+        '204':
+          description: ''
+      tags:
+        - api
+    parameters:
+      - name: id
+        in: path
+        required: true
+        type: string
+  /api/appointment/detail/{id}/:
+    get:
+      operationId: api_appointment_detail_read
+      description: ''
+      parameters: []
+      responses:
+        '200':
+          description: ''
+      tags:
+        - api
+    parameters:
+      - name: id
+        in: path
+        required: true
+        type: string
+  /api/appointment/doctor/getworkingdays/{doctor_id}/{hcc_id}/:
+    get:
+      operationId: api_appointment_doctor_getworkingdays_read
+      description: ''
+      parameters: []
+      responses:
+        '200':
+          description: ''
+      tags:
+        - api
+    parameters:
+      - name: doctor_id
+        in: path
+        required: true
+        type: string
+      - name: hcc_id
+        in: path
+        required: true
+        type: string
+  /api/appointment/doctor/setworkingdays/{doctor_id}/:
+    post:
+      operationId: api_appointment_doctor_setworkingdays_create
+      description: ''
+      parameters: []
+      responses:
+        '201':
+          description: ''
+      tags:
+        - api
+    parameters:
+      - name: doctor_id
+        in: path
+        required: true
+        type: string
+  /api/appointment/fetch/{id}/:
+    get:
+      operationId: api_appointment_fetch_read
+      description: ''
+      parameters: []
+      responses:
+        '200':
+          description: ''
+      tags:
+        - api
+    parameters:
+      - name: id
+        in: path
+        required: true
+        type: string
+  /api/appointment/follow-up/{appointment_id}/:
+    post:
+      operationId: api_appointment_follow-up_create
+      description: ''
+      parameters: []
+      responses:
+        '201':
+          description: ''
+      tags:
+        - api
+    parameters:
+      - name: appointment_id
+        in: path
+        required: true
+        type: string
+  /api/appointment/generate-report/{appointment_id}/:
+    get:
+      operationId: api_appointment_generate-report_read
+      description: ''
+      parameters: []
+      responses:
+        '200':
+          description: ''
+      tags:
+        - api
+    parameters:
+      - name: appointment_id
+        in: path
+        required: true
+        type: string
+  /api/appointment/list/:
+    get:
+      operationId: api_appointment_list_list
+      description: ''
+      parameters: []
+      responses:
+        '200':
+          description: ''
+      tags:
+        - api
+    parameters: []
+  /api/appointment/list3days/{doctor_id}/{hcc_id}/:
+    get:
+      operationId: api_appointment_list3days_read
+      description: ''
+      parameters: []
+      responses:
+        '200':
+          description: ''
+      tags:
+        - api
+    parameters:
+      - name: doctor_id
+        in: path
+        required: true
+        type: string
+      - name: hcc_id
+        in: path
+        required: true
+        type: string
+  /api/appointment/patient-appointment-data/:
+    post:
+      operationId: api_appointment_patient-appointment-data_create
+      description: ''
+      parameters: []
+      responses:
+        '201':
+          description: ''
+      tags:
+        - api
+    parameters: []
+  /api/appointment/report-data-by-appointment/:
+    post:
+      operationId: api_appointment_report-data-by-appointment_create
+      description: ''
+      parameters: []
+      responses:
+        '201':
+          description: ''
+      tags:
+        - api
+    parameters: []
+  /api/appointment/reschedule/:
+    post:
+      operationId: api_appointment_reschedule_create
+      description: ''
+      parameters: []
+      responses:
+        '201':
+          description: ''
+      tags:
+        - api
+    parameters: []
+  /api/appointment/timeslotsbydate/{doctor_id}/{hcc_id}/{apt_date}/{datatype}/:
+    get:
+      operationId: api_appointment_timeslotsbydate_read
+      description: ''
+      parameters: []
+      responses:
+        '200':
+          description: ''
+      tags:
+        - api
+    parameters:
+      - name: apt_date
+        in: path
+        required: true
+        type: string
+      - name: datatype
+        in: path
+        required: true
+        type: string
+      - name: doctor_id
+        in: path
+        required: true
+        type: string
+      - name: hcc_id
+        in: path
+        required: true
+        type: string
+  /api/appointment/update/:
+    patch:
+      operationId: api_appointment_update_partial_update
+      description: ''
+      parameters: []
+      responses:
+        '200':
+          description: ''
+      tags:
+        - api
+    parameters: []
+  /api/doctor/appointment/new/:
+    get:
+      operationId: api_doctor_appointment_new_list
+      description: ''
+      parameters: []
+      responses:
+        '200':
+          description: ''
+      tags:
+        - api
+    parameters: []
+  /api/doctor/change-shift-timings/:
+    post:
+      operationId: api_doctor_change-shift-timings_create
+      description: ''
+      parameters: []
+      responses:
+        '201':
+          description: ''
+      tags:
+        - api
+    parameters: []
+  /api/doctor/education/:
+    get:
+      operationId: api_doctor_education_list
+      description: ''
+      parameters: []
+      responses:
+        '200':
+          description: ''
+      tags:
+        - api
+    post:
+      operationId: api_doctor_education_create
+      description: ''
+      parameters: []
+      responses:
+        '201':
+          description: ''
+      tags:
+        - api
+    parameters: []
+  /api/doctor/experience/:
+    get:
+      operationId: api_doctor_experience_list
+      description: ''
+      parameters: []
+      responses:
+        '200':
+          description: ''
+      tags:
+        - api
+    post:
+      operationId: api_doctor_experience_create
+      description: ''
+      parameters: []
+      responses:
+        '201':
+          description: ''
+      tags:
+        - api
+    parameters: []
+  /api/doctor/get-specialities/:
+    get:
+      operationId: api_doctor_get-specialities_list
+      description: ''
+      parameters: []
+      responses:
+        '200':
+          description: ''
+      tags:
+        - api
+    parameters: []
+  /api/doctors/:
+    get:
+      operationId: api_doctors_list
+      description: ''
+      parameters:
+        - name: page
+          in: query
+          description: A page number within the paginated result set.
+          required: false
+          type: integer
+      responses:
+        '200':
+          description: ''
+          schema:
+            required:
+              - count
+              - results
+            type: object
+            properties:
+              count:
+                type: integer
+              next:
+                type: string
+                format: uri
+                x-nullable: true
+              previous:
+                type: string
+                format: uri
+                x-nullable: true
+              results:
+                type: array
+                items:
+                  $ref: '#/definitions/Doctor'
+      tags:
+        - api
+    post:
+      operationId: api_doctors_create
+      description: ''
+      parameters:
+        - name: data
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/Doctor'
+      responses:
+        '201':
+          description: ''
+          schema:
+            $ref: '#/definitions/Doctor'
+      tags:
+        - api
+    parameters: []
+  /api/doctors/{id}/:
+    get:
+      operationId: api_doctors_read
+      description: ''
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          schema:
+            $ref: '#/definitions/Doctor'
+      tags:
+        - api
+    put:
+      operationId: api_doctors_update
+      description: ''
+      parameters:
+        - name: data
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/Doctor'
+      responses:
+        '200':
+          description: ''
+          schema:
+            $ref: '#/definitions/Doctor'
+      tags:
+        - api
+    patch:
+      operationId: api_doctors_partial_update
+      description: ''
+      parameters:
+        - name: data
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/Doctor'
+      responses:
+        '200':
+          description: ''
+          schema:
+            $ref: '#/definitions/Doctor'
+      tags:
+        - api
+    delete:
+      operationId: api_doctors_delete
+      description: ''
+      parameters: []
+      responses:
+        '204':
+          description: ''
+      tags:
+        - api
+    parameters:
+      - name: id
+        in: path
+        description: A unique integer value identifying this doctor.
+        required: true
+        type: integer
+  /api/fetch-profile/:
+    get:
+      operationId: api_fetch-profile_list
+      description: ''
+      parameters: []
+      responses:
+        '200':
+          description: ''
+      tags:
+        - api
+    parameters: []
+  /api/forgotpassword/change/:
+    post:
+      operationId: api_forgotpassword_change_create
+      description: ''
+      parameters: []
+      responses:
+        '201':
+          description: ''
+      tags:
+        - api
+    parameters: []
+  /api/forgotpassword/send/:
+    post:
+      operationId: api_forgotpassword_send_create
+      description: ''
+      parameters: []
+      responses:
+        '201':
+          description: ''
+      tags:
+        - api
+    parameters: []
+  /api/forgotpassword/verify/:
+    post:
+      operationId: api_forgotpassword_verify_create
+      description: ''
+      parameters: []
+      responses:
+        '201':
+          description: ''
+      tags:
+        - api
+    parameters: []
+  /api/get-available-doctors/:
+    get:
+      operationId: api_get-available-doctors_list
+      description: ''
+      parameters: []
+      responses:
+        '200':
+          description: ''
+      tags:
+        - api
+    parameters: []
+  /api/get-patient-doctor/{user_id}/:
+    get:
+      operationId: api_get-patient-doctor_read
+      description: ''
+      parameters: []
+      responses:
+        '200':
+          description: ''
+      tags:
+        - api
+    parameters:
+      - name: user_id
+        in: path
+        required: true
+        type: string
+  /api/get-states-cities-data/:
+    get:
+      operationId: api_get-states-cities-data_list
+      description: ''
+      parameters: []
+      responses:
+        '200':
+          description: ''
+      tags:
+        - api
+    parameters: []
+  /api/labtest/:
+    get:
+      operationId: api_labtest_list
+      description: ''
+      parameters: []
+      responses:
+        '200':
+          description: ''
+      tags:
+        - api
+    parameters: []
+  /api/labtest/create/:
+    post:
+      operationId: api_labtest_create_create
+      description: ''
+      parameters: []
+      responses:
+        '201':
+          description: ''
+      tags:
+        - api
+    parameters: []
+  /api/labtest/delete/{id}/:
+    delete:
+      operationId: api_labtest_delete_delete
+      description: ''
+      parameters: []
+      responses:
+        '204':
+          description: ''
+      tags:
+        - api
+    parameters:
+      - name: id
+        in: path
+        required: true
+        type: string
+  /api/labtest/detail/{id}/:
+    get:
+      operationId: api_labtest_detail_read
+      description: ''
+      parameters: []
+      responses:
+        '200':
+          description: ''
+      tags:
+        - api
+    parameters:
+      - name: id
+        in: path
+        required: true
+        type: string
+  /api/labtest/list/:
+    get:
+      operationId: api_labtest_list_list
+      description: ''
+      parameters: []
+      responses:
+        '200':
+          description: ''
+      tags:
+        - api
+    parameters: []
+  /api/labtest/update/{id}/:
+    patch:
+      operationId: api_labtest_update_partial_update
+      description: ''
+      parameters: []
+      responses:
+        '200':
+          description: ''
+      tags:
+        - api
+    parameters:
+      - name: id
+        in: path
+        required: true
+        type: string
+  /api/logger/:
+    post:
+      operationId: api_logger_create
+      description: ''
+      parameters: []
+      responses:
+        '201':
+          description: ''
+      tags:
+        - api
+    parameters: []
+  /api/medication/:
+    get:
+      operationId: api_medication_list
+      description: ''
+      parameters:
+        - name: page
+          in: query
+          description: A page number within the paginated result set.
+          required: false
+          type: integer
+      responses:
+        '200':
+          description: ''
+          schema:
+            required:
+              - count
+              - results
+            type: object
+            properties:
+              count:
+                type: integer
+              next:
+                type: string
+                format: uri
+                x-nullable: true
+              previous:
+                type: string
+                format: uri
+                x-nullable: true
+              results:
+                type: array
+                items:
+                  $ref: '#/definitions/Medication'
+      tags:
+        - api
+    post:
+      operationId: api_medication_create
+      description: ''
+      parameters:
+        - name: data
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/Medication'
+      responses:
+        '201':
+          description: ''
+          schema:
+            $ref: '#/definitions/Medication'
+      tags:
+        - api
+    parameters: []
+  /api/medication/{id}/:
+    get:
+      operationId: api_medication_read
+      description: ''
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          schema:
+            $ref: '#/definitions/Medication'
+      tags:
+        - api
+    put:
+      operationId: api_medication_update
+      description: ''
+      parameters:
+        - name: data
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/Medication'
+      responses:
+        '200':
+          description: ''
+          schema:
+            $ref: '#/definitions/Medication'
+      tags:
+        - api
+    patch:
+      operationId: api_medication_partial_update
+      description: ''
+      parameters:
+        - name: data
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/Medication'
+      responses:
+        '200':
+          description: ''
+          schema:
+            $ref: '#/definitions/Medication'
+      tags:
+        - api
+    delete:
+      operationId: api_medication_delete
+      description: ''
+      parameters: []
+      responses:
+        '204':
+          description: ''
+      tags:
+        - api
+    parameters:
+      - name: id
+        in: path
+        description: A unique integer value identifying this medication.
+        required: true
+        type: integer
+  /api/mobile/auth/login/:
+    post:
+      operationId: api_mobile_auth_login_create
+      description: ''
+      parameters:
+        - name: data
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/AuthToken'
+      responses:
+        '201':
+          description: ''
+          schema:
+            $ref: '#/definitions/AuthToken'
+      tags:
+        - api
+    parameters: []
+  /api/mobile/auth/logout/:
+    get:
+      operationId: api_mobile_auth_logout_list
+      description: ''
+      parameters: []
+      responses:
+        '200':
+          description: ''
+      tags:
+        - api
+    parameters: []
+  /api/mobile/auth/register/:
+    post:
+      operationId: api_mobile_auth_register_create
+      description: ''
+      parameters:
+        - name: data
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/CreateUser'
+      responses:
+        '201':
+          description: ''
+          schema:
+            $ref: '#/definitions/CreateUser'
+      tags:
+        - api
+    parameters: []
+  /api/notification/register/:
+    post:
+      operationId: api_notification_register_create
+      description: ''
+      parameters: []
+      responses:
+        '201':
+          description: ''
+      tags:
+        - api
+    parameters: []
+  /api/password_reset/:
+    post:
+      operationId: api_password_reset_create
+      summary: An Api View which provides a method to request a password reset token
+        based on an e-mail address
+      description: Sends a signal reset_password_token_created when a reset token
+        was created
+      parameters:
+        - name: data
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/Email'
+      responses:
+        '201':
+          description: ''
+          schema:
+            $ref: '#/definitions/Email'
+      tags:
+        - api
+    parameters: []
+  /api/password_reset/confirm/:
+    post:
+      operationId: api_password_reset_confirm_create
+      description: An Api View which provides a method to reset a password based on
+        a unique token
+      parameters:
+        - name: data
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/PasswordToken'
+      responses:
+        '201':
+          description: ''
+          schema:
+            $ref: '#/definitions/PasswordToken'
+      tags:
+        - api
+    parameters: []
+  /api/password_reset/validate_token/:
+    post:
+      operationId: api_password_reset_validate_token_create
+      description: An Api View which provides a method to verify that a token is valid
+      parameters:
+        - name: data
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/Token'
+      responses:
+        '201':
+          description: ''
+          schema:
+            $ref: '#/definitions/Token'
+      tags:
+        - api
+    parameters: []
+  /api/patient-data-by-apt/{appt_id}/:
+    get:
+      operationId: api_patient-data-by-apt_read
+      description: ''
+      parameters: []
+      responses:
+        '200':
+          description: ''
+      tags:
+        - api
+    parameters:
+      - name: appt_id
+        in: path
+        required: true
+        type: string
+  /api/patient/appointments/{patient_id}/:
+    get:
+      operationId: api_patient_appointments_read
+      description: ''
+      parameters: []
+      responses:
+        '200':
+          description: ''
+      tags:
+        - api
+    parameters:
+      - name: patient_id
+        in: path
+        required: true
+        type: string
+  /api/patient/create-appointment/:
+    post:
+      operationId: api_patient_create-appointment_create
+      description: ''
+      parameters: []
+      responses:
+        '201':
+          description: ''
+      tags:
+        - api
+    parameters: []
+  /api/patient/get-profile-picture/{user_id}/:
+    get:
+      operationId: api_patient_get-profile-picture_read
+      description: ''
+      parameters: []
+      responses:
+        '200':
+          description: ''
+      tags:
+        - api
+    parameters:
+      - name: user_id
+        in: path
+        required: true
+        type: string
+  /api/patient/get-profile/{user_id}/:
+    get:
+      operationId: api_patient_get-profile_read
+      description: ''
+      parameters: []
+      responses:
+        '200':
+          description: ''
+      tags:
+        - api
+    parameters:
+      - name: user_id
+        in: path
+        required: true
+        type: string
+  /api/patient/location/:
+    get:
+      operationId: api_patient_location_list
+      description: ''
+      parameters: []
+      responses:
+        '200':
+          description: ''
+      tags:
+        - api
+    post:
+      operationId: api_patient_location_create
+      description: ''
+      parameters: []
+      responses:
+        '201':
+          description: ''
+      tags:
+        - api
+    parameters: []
+  /api/patient/update-appointment/:
+    post:
+      operationId: api_patient_update-appointment_create
+      description: ''
+      parameters: []
+      responses:
+        '201':
+          description: ''
+      tags:
+        - api
+    delete:
+      operationId: api_patient_update-appointment_delete
+      description: ''
+      parameters: []
+      responses:
+        '204':
+          description: ''
+      tags:
+        - api
+    parameters: []
+  /api/patient/update-profile-picture/:
+    post:
+      operationId: api_patient_update-profile-picture_create
+      description: ''
+      parameters: []
+      responses:
+        '201':
+          description: ''
+      tags:
+        - api
+    parameters: []
+  /api/patient/update-profile/:
+    post:
+      operationId: api_patient_update-profile_create
+      description: ''
+      parameters:
+        - name: data
+          in: body
+          required: true
+          schema:
+            required:
+              - user_id
+            type: object
+            properties:
+              user_id:
+                description: Integer, PK of user
+                type: integer
+              email:
+                description: johndoe@example.com
+                type: string
+              name:
+                description: String
+                type: string
+              dob:
+                description: dd-mm-yyyy
+                type: string
+              gender:
+                description: M|F|O
+                type: string
+              address:
+                description: String
+                type: string
+              number:
+                description: String
+                type: string
+      responses:
+        '200':
+          description: Success
+          examples:
+            application/json:
+              user_exists: true
+        '400':
+          description: Invalid Input
+          examples:
+            application/json:
+              status: Invalid Email
+      tags:
+        - api
+    parameters: []
+  /api/patients/:
+    get:
+      operationId: api_patients_list
+      description: ''
+      parameters:
+        - name: page
+          in: query
+          description: A page number within the paginated result set.
+          required: false
+          type: integer
+      responses:
+        '200':
+          description: ''
+          schema:
+            required:
+              - count
+              - results
+            type: object
+            properties:
+              count:
+                type: integer
+              next:
+                type: string
+                format: uri
+                x-nullable: true
+              previous:
+                type: string
+                format: uri
+                x-nullable: true
+              results:
+                type: array
+                items:
+                  $ref: '#/definitions/Patient'
+      tags:
+        - api
+    post:
+      operationId: api_patients_create
+      description: ''
+      parameters:
+        - name: data
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/Patient'
+      responses:
+        '201':
+          description: ''
+          schema:
+            $ref: '#/definitions/Patient'
+      tags:
+        - api
+    parameters: []
+  /api/patients/{id}/:
+    get:
+      operationId: api_patients_read
+      description: ''
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          schema:
+            $ref: '#/definitions/Patient'
+      tags:
+        - api
+    put:
+      operationId: api_patients_update
+      description: ''
+      parameters:
+        - name: data
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/Patient'
+      responses:
+        '200':
+          description: ''
+          schema:
+            $ref: '#/definitions/Patient'
+      tags:
+        - api
+    patch:
+      operationId: api_patients_partial_update
+      description: ''
+      parameters:
+        - name: data
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/Patient'
+      responses:
+        '200':
+          description: ''
+          schema:
+            $ref: '#/definitions/Patient'
+      tags:
+        - api
+    delete:
+      operationId: api_patients_delete
+      description: ''
+      parameters: []
+      responses:
+        '204':
+          description: ''
+      tags:
+        - api
+    parameters:
+      - name: id
+        in: path
+        description: A unique integer value identifying this patient.
+        required: true
+        type: integer
+  /api/payments/create-appointment-order/:
+    post:
+      operationId: api_payments_create-appointment-order_create
+      description: ''
+      parameters: []
+      responses:
+        '201':
+          description: ''
+      tags:
+        - api
+    parameters: []
+  /api/payments/paytm/create-appointment-order/:
+    post:
+      operationId: api_payments_paytm_create-appointment-order_create
+      description: ''
+      parameters: []
+      responses:
+        '201':
+          description: ''
+      tags:
+        - api
+    parameters: []
+  /api/payments/paytm/create-hcc-order/:
+    post:
+      operationId: api_payments_paytm_create-hcc-order_create
+      description: ''
+      parameters: []
+      responses:
+        '201':
+          description: ''
+      tags:
+        - api
+    parameters: []
+  /api/payments/paytm/verify-appointment-order/:
+    post:
+      operationId: api_payments_paytm_verify-appointment-order_create
+      description: ''
+      parameters: []
+      responses:
+        '201':
+          description: ''
+      tags:
+        - api
+    parameters: []
+  /api/payments/paytm/verify-webhook/:
+    post:
+      operationId: api_payments_paytm_verify-webhook_create
+      description: ''
+      parameters: []
+      responses:
+        '201':
+          description: ''
+      tags:
+        - api
+    parameters: []
+  /api/payments/paytm/verify/:
+    post:
+      operationId: api_payments_paytm_verify_create
+      description: ''
+      parameters: []
+      responses:
+        '201':
+          description: ''
+      tags:
+        - api
+    parameters: []
+  /api/payments/update-appointment-status/:
+    post:
+      operationId: api_payments_update-appointment-status_create
+      description: ''
+      parameters: []
+      responses:
+        '201':
+          description: ''
+      tags:
+        - api
+    parameters: []
+  /api/payments/verify-appointment-order/:
+    post:
+      operationId: api_payments_verify-appointment-order_create
+      description: ''
+      parameters: []
+      responses:
+        '201':
+          description: ''
+      tags:
+        - api
+    parameters: []
+  /api/prescription/:
+    get:
+      operationId: api_prescription_list
+      description: ''
+      parameters: []
+      responses:
+        '200':
+          description: ''
+      tags:
+        - api
+    parameters: []
+  /api/prescription/create/:
+    post:
+      operationId: api_prescription_create_create
+      description: ''
+      parameters: []
+      responses:
+        '201':
+          description: ''
+      tags:
+        - api
+    parameters: []
+  /api/prescription/delete/{id}/:
+    delete:
+      operationId: api_prescription_delete_delete
+      description: ''
+      parameters: []
+      responses:
+        '204':
+          description: ''
+      tags:
+        - api
+    parameters:
+      - name: id
+        in: path
+        required: true
+        type: string
+  /api/prescription/detail/{id}/:
+    get:
+      operationId: api_prescription_detail_read
+      description: ''
+      parameters: []
+      responses:
+        '200':
+          description: ''
+      tags:
+        - api
+    parameters:
+      - name: id
+        in: path
+        required: true
+        type: string
+  /api/prescription/list/:
+    get:
+      operationId: api_prescription_list_list
+      description: ''
+      parameters: []
+      responses:
+        '200':
+          description: ''
+      tags:
+        - api
+    parameters: []
+  /api/prescription/patient/fitness/{id}/:
+    get:
+      operationId: api_prescription_patient_fitness_read
+      description: ''
+      parameters: []
+      responses:
+        '200':
+          description: ''
+      tags:
+        - api
+    post:
+      operationId: api_prescription_patient_fitness_create
+      description: ''
+      parameters: []
+      responses:
+        '201':
+          description: ''
+      tags:
+        - api
+    parameters:
+      - name: id
+        in: path
+        required: true
+        type: string
+  /api/prescription/patient/vitals/{id}/:
+    post:
+      operationId: api_prescription_patient_vitals_create
+      description: ''
+      parameters: []
+      responses:
+        '201':
+          description: ''
+      tags:
+        - api
+    parameters:
+      - name: id
+        in: path
+        required: true
+        type: string
+  /api/prescription/patient_history/{id}/:
+    get:
+      operationId: api_prescription_patient_history_read
+      description: ''
+      parameters: []
+      responses:
+        '200':
+          description: ''
+      tags:
+        - api
+    parameters:
+      - name: id
+        in: path
+        required: true
+        type: string
+  /api/prescription/update/{id}/:
+    patch:
+      operationId: api_prescription_update_partial_update
+      description: ''
+      parameters: []
+      responses:
+        '200':
+          description: ''
+      tags:
+        - api
+    parameters:
+      - name: id
+        in: path
+        required: true
+        type: string
+  /api/procedure/all-reports/{patient_id}/:
+    get:
+      operationId: api_procedure_all-reports_read
+      description: ''
+      parameters: []
+      responses:
+        '200':
+          description: ''
+      tags:
+        - api
+    parameters:
+      - name: patient_id
+        in: path
+        required: true
+        type: string
+  /api/procedure/finish-appointment/v1/:
+    post:
+      operationId: api_procedure_finish-appointment_v1_create
+      description: ''
+      parameters: []
+      responses:
+        '201':
+          description: ''
+      tags:
+        - api
+    parameters: []
+  /api/procedure/finish-appointment/v2/:
+    post:
+      operationId: api_procedure_finish-appointment_v2_create
+      description: ''
+      parameters: []
+      responses:
+        '201':
+          description: ''
+      tags:
+        - api
+    parameters: []
+  /api/procedure/get-disease-data/:
+    get:
+      operationId: api_procedure_get-disease-data_list
+      description: ''
+      parameters: []
+      responses:
+        '200':
+          description: ''
+      tags:
+        - api
+    parameters: []
+  /api/procedure/get-disease/:
+    post:
+      operationId: api_procedure_get-disease_create
+      description: ''
+      parameters: []
+      responses:
+        '201':
+          description: ''
+      tags:
+        - api
+    parameters: []
+  /api/procedure/get-labtest-data/:
+    get:
+      operationId: api_procedure_get-labtest-data_list
+      description: ''
+      parameters: []
+      responses:
+        '200':
+          description: ''
+      tags:
+        - api
+    parameters: []
+  /api/procedure/get-medicine-data/:
+    get:
+      operationId: api_procedure_get-medicine-data_list
+      description: ''
+      parameters: []
+      responses:
+        '200':
+          description: ''
+      tags:
+        - api
+    parameters: []
+  /api/procedure/get-symptom-data/:
+    get:
+      operationId: api_procedure_get-symptom-data_list
+      description: ''
+      parameters: []
+      responses:
+        '200':
+          description: ''
+      tags:
+        - api
+    parameters: []
+  /api/procedure/getsymptoms/:
+    get:
+      operationId: api_procedure_getsymptoms_list
+      description: ''
+      parameters: []
+      responses:
+        '200':
+          description: ''
+      tags:
+        - api
+    parameters: []
+  /api/procedure/medicine-search/v1/:
+    post:
+      operationId: api_procedure_medicine-search_v1_create
+      description: ''
+      parameters: []
+      responses:
+        '201':
+          description: ''
+      tags:
+        - api
+    parameters: []
+  /api/procedure/medicine-search/v2/:
+    post:
+      operationId: api_procedure_medicine-search_v2_create
+      description: ''
+      parameters: []
+      responses:
+        '201':
+          description: ''
+      tags:
+        - api
+    parameters: []
+  /api/procedure/new-report-appointment/:
+    post:
+      operationId: api_procedure_new-report-appointment_create
+      description: ''
+      parameters: []
+      responses:
+        '201':
+          description: ''
+      tags:
+        - api
+    parameters: []
+  /api/procedure/patient-report/{enc}/:
+    get:
+      operationId: api_procedure_patient-report_read
+      description: ''
+      parameters: []
+      responses:
+        '200':
+          description: ''
+      tags:
+        - api
+    parameters:
+      - name: enc
+        in: path
+        required: true
+        type: string
+  /api/procedure/postchoices1/:
+    post:
+      operationId: api_procedure_postchoices1_create
+      description: ''
+      parameters: []
+      responses:
+        '201':
+          description: ''
+      tags:
+        - api
+    parameters: []
+  /api/procedure/postchoices2/:
+    post:
+      operationId: api_procedure_postchoices2_create
+      description: ''
+      parameters: []
+      responses:
+        '201':
+          description: ''
+      tags:
+        - api
+    parameters: []
+  /api/procedure/print-appointment-report/:
+    post:
+      operationId: api_procedure_print-appointment-report_create
+      description: ''
+      parameters: []
+      responses:
+        '201':
+          description: ''
+      tags:
+        - api
+    parameters: []
+  /api/procedure/search-disease/:
+    post:
+      operationId: api_procedure_search-disease_create
+      description: ''
+      parameters: []
+      responses:
+        '201':
+          description: ''
+      tags:
+        - api
+    parameters: []
+  /api/procedure/search-labtest/:
+    post:
+      operationId: api_procedure_search-labtest_create
+      description: ''
+      parameters: []
+      responses:
+        '201':
+          description: ''
+      tags:
+        - api
+    parameters: []
+  /api/procedure/search-symptoms/:
+    post:
+      operationId: api_procedure_search-symptoms_create
+      description: ''
+      parameters: []
+      responses:
+        '201':
+          description: ''
+      tags:
+        - api
+    parameters: []
+  /api/procedure/send-report-patient-sms/:
+    post:
+      operationId: api_procedure_send-report-patient-sms_create
+      description: ''
+      parameters: []
+      responses:
+        '201':
+          description: ''
+      tags:
+        - api
+    parameters: []
+  /api/procedure/single-report/{report_id}/:
+    get:
+      operationId: api_procedure_single-report_read
+      description: ''
+      parameters: []
+      responses:
+        '200':
+          description: ''
+      tags:
+        - api
+    parameters:
+      - name: report_id
+        in: path
+        required: true
+        type: string
+  /api/procedure/submitchoices/:
+    post:
+      operationId: api_procedure_submitchoices_create
+      description: ''
+      parameters: []
+      responses:
+        '201':
+          description: ''
+      tags:
+        - api
+    parameters: []
+  /api/procedure/symptom-data/{appointment_id}/:
+    get:
+      operationId: api_procedure_symptom-data_read
+      description: ''
+      parameters: []
+      responses:
+        '200':
+          description: ''
+      tags:
+        - api
+    parameters:
+      - name: appointment_id
+        in: path
+        required: true
+        type: string
+  /api/procedure/symptoms-data/:
+    post:
+      operationId: api_procedure_symptoms-data_create
+      description: ''
+      parameters: []
+      responses:
+        '201':
+          description: ''
+      tags:
+        - api
+    parameters: []
+  /api/procedure/update-lab-tests/:
+    post:
+      operationId: api_procedure_update-lab-tests_create
+      description: ''
+      parameters: []
+      responses:
+        '201':
+          description: ''
+      tags:
+        - api
+    parameters: []
+  /api/procedure/update-labtest-hitcount-data/{lab_id}/:
+    get:
+      operationId: api_procedure_update-labtest-hitcount-data_read
+      description: ''
+      parameters: []
+      responses:
+        '200':
+          description: ''
+      tags:
+        - api
+    parameters:
+      - name: lab_id
+        in: path
+        required: true
+        type: string
+  /api/procedure/update-medicine-hitcount-data/{med_id}/:
+    get:
+      operationId: api_procedure_update-medicine-hitcount-data_read
+      description: ''
+      parameters: []
+      responses:
+        '200':
+          description: ''
+      tags:
+        - api
+    parameters:
+      - name: med_id
+        in: path
+        required: true
+        type: string
+  /api/procedure/update-prescription-data/:
+    post:
+      operationId: api_procedure_update-prescription-data_create
+      description: ''
+      parameters: []
+      responses:
+        '201':
+          description: ''
+      tags:
+        - api
+    parameters: []
+  /api/procedure/updateAppt/:
+    post:
+      operationId: api_procedure_updateAppt_create
+      description: ''
+      parameters: []
+      responses:
+        '201':
+          description: ''
+      tags:
+        - api
+    parameters: []
+  /api/profile/contact/update/:
+    post:
+      operationId: api_profile_contact_update_create
+      description: ''
+      parameters: []
+      responses:
+        '201':
+          description: ''
+      tags:
+        - api
+    parameters: []
+  /api/profile/gender/update/:
+    post:
+      operationId: api_profile_gender_update_create
+      description: ''
+      parameters: []
+      responses:
+        '201':
+          description: ''
+      tags:
+        - api
+    parameters: []
+  /api/report/:
+    get:
+      operationId: api_report_list
+      description: ''
+      parameters: []
+      responses:
+        '200':
+          description: ''
+      tags:
+        - api
+    parameters: []
+  /api/report/create/:
+    post:
+      operationId: api_report_create_create
+      description: ''
+      parameters: []
+      responses:
+        '201':
+          description: ''
+      tags:
+        - api
+    parameters: []
+  /api/report/delete/{id}/:
+    delete:
+      operationId: api_report_delete_delete
+      description: ''
+      parameters: []
+      responses:
+        '204':
+          description: ''
+      tags:
+        - api
+    parameters:
+      - name: id
+        in: path
+        required: true
+        type: string
+  /api/report/detail/{id}/:
+    get:
+      operationId: api_report_detail_read
+      description: ''
+      parameters: []
+      responses:
+        '200':
+          description: ''
+      tags:
+        - api
+    parameters:
+      - name: id
+        in: path
+        required: true
+        type: string
+  /api/report/list/:
+    get:
+      operationId: api_report_list_list
+      description: ''
+      parameters: []
+      responses:
+        '200':
+          description: ''
+      tags:
+        - api
+    parameters: []
+  /api/report/update/{id}/:
+    patch:
+      operationId: api_report_update_partial_update
+      description: ''
+      parameters: []
+      responses:
+        '200':
+          description: ''
+      tags:
+        - api
+    parameters:
+      - name: id
+        in: path
+        required: true
+        type: string
+  /api/search-patient-by-number/:
+    post:
+      operationId: api_search-patient-by-number_create
+      description: ''
+      parameters: []
+      responses:
+        '201':
+          description: ''
+      tags:
+        - api
+    parameters: []
+  /api/search/lab-tests/:
+    get:
+      operationId: api_search_lab-tests_list
+      description: ''
+      parameters: []
+      responses:
+        '200':
+          description: ''
+      tags:
+        - api
+    parameters: []
+  /api/users/:
+    get:
+      operationId: api_users_list
+      description: ''
+      parameters:
+        - name: page
+          in: query
+          description: A page number within the paginated result set.
+          required: false
+          type: integer
+      responses:
+        '200':
+          description: ''
+          schema:
+            required:
+              - count
+              - results
+            type: object
+            properties:
+              count:
+                type: integer
+              next:
+                type: string
+                format: uri
+                x-nullable: true
+              previous:
+                type: string
+                format: uri
+                x-nullable: true
+              results:
+                type: array
+                items:
+                  $ref: '#/definitions/User'
+      tags:
+        - api
+    post:
+      operationId: api_users_create
+      description: ''
+      parameters:
+        - name: data
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/User'
+      responses:
+        '201':
+          description: ''
+          schema:
+            $ref: '#/definitions/User'
+      tags:
+        - api
+    parameters: []
+  /api/users/{id}/:
+    get:
+      operationId: api_users_read
+      description: ''
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          schema:
+            $ref: '#/definitions/User'
+      tags:
+        - api
+    put:
+      operationId: api_users_update
+      description: ''
+      parameters:
+        - name: data
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/User'
+      responses:
+        '200':
+          description: ''
+          schema:
+            $ref: '#/definitions/User'
+      tags:
+        - api
+    patch:
+      operationId: api_users_partial_update
+      description: ''
+      parameters:
+        - name: data
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/User'
+      responses:
+        '200':
+          description: ''
+          schema:
+            $ref: '#/definitions/User'
+      tags:
+        - api
+    delete:
+      operationId: api_users_delete
+      description: ''
+      parameters: []
+      responses:
+        '204':
+          description: ''
+      tags:
+        - api
+    parameters:
+      - name: id
+        in: path
+        description: A unique integer value identifying this user.
+        required: true
+        type: integer
+  /api/waitlist/:
+    post:
+      operationId: api_waitlist_create
+      description: ''
+      parameters: []
+      responses:
+        '201':
+          description: ''
+      tags:
+        - api
+    parameters: []
+  /api/workspace/banks/:
+    get:
+      operationId: api_workspace_banks_list
+      description: ''
+      parameters: []
+      responses:
+        '200':
+          description: ''
+      tags:
+        - api
+    parameters: []
+  /api/workspace/check-employee-shift-timings/:
+    get:
+      operationId: api_workspace_check-employee-shift-timings_list
+      description: ''
+      parameters: []
+      responses:
+        '200':
+          description: ''
+      tags:
+        - api
+    parameters: []
+  /api/workspace/create-workforce-employee/:
+    post:
+      operationId: api_workspace_create-workforce-employee_create
+      description: ''
+      parameters: []
+      responses:
+        '201':
+          description: ''
+      tags:
+        - api
+    parameters: []
+  /api/workspace/get-all-consultation-fees/:
+    get:
+      operationId: api_workspace_get-all-consultation-fees_list
+      description: ''
+      parameters: []
+      responses:
+        '200':
+          description: ''
+      tags:
+        - api
+    parameters: []
+  /api/workspace/get-branches-from-district/:
+    get:
+      operationId: api_workspace_get-branches-from-district_list
+      description: ''
+      parameters: []
+      responses:
+        '200':
+          description: ''
+      tags:
+        - api
+    parameters: []
+  /api/workspace/get-districts-from-state/:
+    get:
+      operationId: api_workspace_get-districts-from-state_list
+      description: ''
+      parameters: []
+      responses:
+        '200':
+          description: ''
+      tags:
+        - api
+    parameters: []
+  /api/workspace/get-doctors-by-hcc/:
+    get:
+      operationId: api_workspace_get-doctors-by-hcc_list
+      description: ''
+      parameters: []
+      responses:
+        '200':
+          description: ''
+      tags:
+        - api
+    parameters: []
+  /api/workspace/get-employee-shift-timings/:
+    get:
+      operationId: api_workspace_get-employee-shift-timings_list
+      description: ''
+      parameters: []
+      responses:
+        '200':
+          description: ''
+      tags:
+        - api
+    parameters: []
+  /api/workspace/get-healthcarecenter-info/{type}/:
+    get:
+      operationId: api_workspace_get-healthcarecenter-info_read
+      description: ''
+      parameters: []
+      responses:
+        '200':
+          description: ''
+      tags:
+        - api
+    parameters:
+      - name: type
+        in: path
+        required: true
+        type: string
+  /api/workspace/get-states-from-bank/:
+    get:
+      operationId: api_workspace_get-states-from-bank_list
+      description: ''
+      parameters: []
+      responses:
+        '200':
+          description: ''
+      tags:
+        - api
+    parameters: []
+  /api/workspace/get-workforce-info/{emp_type}/{healthcarecenter}/:
+    get:
+      operationId: api_workspace_get-workforce-info_read
+      description: ''
+      parameters: []
+      responses:
+        '200':
+          description: ''
+      tags:
+        - api
+    parameters:
+      - name: emp_type
+        in: path
+        required: true
+        type: string
+      - name: healthcarecenter
+        in: path
+        required: true
+        type: string
+  /api/workspace/get-workspaces-owned/:
+    get:
+      operationId: api_workspace_get-workspaces-owned_list
+      description: ''
+      parameters: []
+      responses:
+        '200':
+          description: ''
+      tags:
+        - api
+    parameters: []
+  /api/workspace/selected-hcc/:
+    get:
+      operationId: api_workspace_selected-hcc_list
+      description: ''
+      parameters: []
+      responses:
+        '200':
+          description: ''
+      tags:
+        - api
+    post:
+      operationId: api_workspace_selected-hcc_create
+      description: ''
+      parameters: []
+      responses:
+        '201':
+          description: ''
+      tags:
+        - api
+    parameters: []
+  /api/workspace/services/:
+    get:
+      operationId: api_workspace_services_list
+      description: ''
+      parameters: []
+      responses:
+        '200':
+          description: ''
+      tags:
+        - api
+    post:
+      operationId: api_workspace_services_create
+      description: ''
+      parameters: []
+      responses:
+        '201':
+          description: ''
+      tags:
+        - api
+    patch:
+      operationId: api_workspace_services_partial_update
+      description: ''
+      parameters: []
+      responses:
+        '200':
+          description: ''
+      tags:
+        - api
+    delete:
+      operationId: api_workspace_services_delete
+      description: ''
+      parameters: []
+      responses:
+        '204':
+          description: ''
+      tags:
+        - api
+    parameters: []
+  /api/workspace/update-bank-account/:
+    get:
+      operationId: api_workspace_update-bank-account_list
+      description: ''
+      parameters: []
+      responses:
+        '200':
+          description: ''
+      tags:
+        - api
+    post:
+      operationId: api_workspace_update-bank-account_create
+      description: ''
+      parameters: []
+      responses:
+        '201':
+          description: ''
+      tags:
+        - api
+    patch:
+      operationId: api_workspace_update-bank-account_partial_update
+      description: ''
+      parameters: []
+      responses:
+        '200':
+          description: ''
+      tags:
+        - api
+    parameters: []
+  /api/workspace/update-consultation-fees/:
+    post:
+      operationId: api_workspace_update-consultation-fees_create
+      description: ''
+      parameters: []
+      responses:
+        '201':
+          description: ''
+      tags:
+        - api
+    parameters: []
+  /api/workspace/update-healthcarecenter-info/:
+    post:
+      operationId: api_workspace_update-healthcarecenter-info_create
+      description: ''
+      parameters: []
+      responses:
+        '201':
+          description: ''
+      tags:
+        - api
+    patch:
+      operationId: api_workspace_update-healthcarecenter-info_partial_update
+      description: ''
+      parameters: []
+      responses:
+        '200':
+          description: ''
+      tags:
+        - api
+    parameters: []
+  /api/workspace/update-location/:
+    get:
+      operationId: api_workspace_update-location_list
+      description: ''
+      parameters: []
+      responses:
+        '200':
+          description: ''
+      tags:
+        - api
+    post:
+      operationId: api_workspace_update-location_create
+      description: ''
+      parameters: []
+      responses:
+        '201':
+          description: ''
+      tags:
+        - api
+    parameters: []
+  /api/workspace/update-workforce-employee/:
+    post:
+      operationId: api_workspace_update-workforce-employee_create
+      description: ''
+      parameters: []
+      responses:
+        '201':
+          description: ''
+      tags:
+        - api
+    delete:
+      operationId: api_workspace_update-workforce-employee_delete
+      description: ''
+      parameters: []
+      responses:
+        '204':
+          description: ''
+      tags:
+        - api
+    parameters: []
+  /api/workspace/update-workforce-info/:
+    post:
+      operationId: api_workspace_update-workforce-info_create
+      description: ''
+      parameters: []
+      responses:
+        '201':
+          description: ''
+      tags:
+        - api
+    parameters: []
+  /auth/login/:
+    post:
+      operationId: auth_login_create
+      description: ''
+      parameters:
+        - name: data
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/AuthToken'
+      responses:
+        '201':
+          description: ''
+          schema:
+            $ref: '#/definitions/AuthToken'
+      tags:
+        - auth
+    parameters: []
+  /auth/logout/:
+    get:
+      operationId: auth_logout_list
+      description: ''
+      parameters: []
+      responses:
+        '200':
+          description: ''
+      tags:
+        - auth
+    parameters: []
+  /check_online/{id}/:
+    get:
+      operationId: check_online_read
+      description: ''
+      parameters: []
+      responses:
+        '200':
+          description: ''
+      tags:
+        - check_online
+    parameters:
+      - name: id
+        in: path
+        required: true
+        type: string
+  /doctor/get-profile-picture/{user_id}/:
+    get:
+      operationId: doctor_get-profile-picture_read
+      description: ''
+      parameters: []
+      responses:
+        '200':
+          description: ''
+      tags:
+        - doctor
+    parameters:
+      - name: user_id
+        in: path
+        required: true
+        type: string
+  /doctor/update-profile-picture/:
+    post:
+      operationId: doctor_update-profile-picture_create
+      description: ''
+      parameters: []
+      responses:
+        '201':
+          description: ''
+      tags:
+        - doctor
+    parameters: []
+  /doctor/years-of-experience/{doctor_id}/:
+    get:
+      operationId: doctor_years-of-experience_read
+      description: ''
+      parameters: []
+      responses:
+        '200':
+          description: ''
+      tags:
+        - doctor
+    parameters:
+      - name: doctor_id
+        in: path
+        required: true
+        type: string
+  /ndhm/aadhaar-create-healthid-with-otp/:
+    post:
+      operationId: ndhm_aadhaar-create-healthid-with-otp_create
+      description: ''
+      parameters: []
+      responses:
+        '201':
+          description: ''
+      tags:
+        - ndhm
+    parameters: []
+  /ndhm/aadhaar-create-healthid/:
+    post:
+      operationId: ndhm_aadhaar-create-healthid_create
+      description: ''
+      parameters: []
+      responses:
+        '201':
+          description: ''
+      tags:
+        - ndhm
+    parameters: []
+  /ndhm/aadhaar-send-otp/:
+    post:
+      operationId: ndhm_aadhaar-send-otp_create
+      description: ''
+      parameters: []
+      responses:
+        '201':
+          description: ''
+      tags:
+        - ndhm
+    parameters: []
+  /ndhm/aadhaar-verify-otp/:
+    post:
+      operationId: ndhm_aadhaar-verify-otp_create
+      description: ''
+      parameters: []
+      responses:
+        '201':
+          description: ''
+      tags:
+        - ndhm
+    parameters: []
+  /ndhm/authorize/:
+    get:
+      operationId: ndhm_authorize_list
+      description: ''
+      parameters: []
+      responses:
+        '200':
+          description: ''
+      tags:
+        - ndhm
+    parameters: []
+  /ndhm/bridges-webhook/:
+    post:
+      operationId: ndhm_bridges-webhook_create
+      description: ''
+      parameters: []
+      responses:
+        '201':
+          description: ''
+      tags:
+        - ndhm
+    parameters: []
+  /ndhm/health-id-auth-init/:
+    post:
+      operationId: ndhm_health-id-auth-init_create
+      description: ''
+      parameters: []
+      responses:
+        '201':
+          description: ''
+      tags:
+        - ndhm
+    parameters: []
+  /ndhm/health-id-auth-with-mobile/:
+    post:
+      operationId: ndhm_health-id-auth-with-mobile_create
+      description: ''
+      parameters: []
+      responses:
+        '201':
+          description: ''
+      tags:
+        - ndhm
+    parameters: []
+  /ndhm/health-id-auth-with-password/:
+    post:
+      operationId: ndhm_health-id-auth-with-password_create
+      description: ''
+      parameters: []
+      responses:
+        '201':
+          description: ''
+      tags:
+        - ndhm
+    parameters: []
+  /ndhm/login-url/:
+    get:
+      operationId: ndhm_login-url_list
+      description: ''
+      parameters: []
+      responses:
+        '200':
+          description: ''
+      tags:
+        - ndhm
+    parameters: []
+  /ndhm/login/:
+    get:
+      operationId: ndhm_login_list
+      description: ''
+      parameters: []
+      responses:
+        '200':
+          description: ''
+      tags:
+        - ndhm
+    parameters: []
+  /ndhm/mobile-send-otp/:
+    post:
+      operationId: ndhm_mobile-send-otp_create
+      description: ''
+      parameters: []
+      responses:
+        '201':
+          description: ''
+      tags:
+        - ndhm
+    parameters: []
+  /ndhm/update-bridge/:
+    post:
+      operationId: ndhm_update-bridge_create
+      description: ''
+      parameters: []
+      responses:
+        '201':
+          description: ''
+      tags:
+        - ndhm
+    parameters: []
+  /ndhm/update-url/:
+    post:
+      operationId: ndhm_update-url_create
+      description: ''
+      parameters: []
+      responses:
+        '201':
+          description: ''
+      tags:
+        - ndhm
+    parameters: []
+  /ot/api/join/vax-tracker/:
+    post:
+      operationId: ot_api_join_vax-tracker_create
+      description: ''
+      parameters: []
+      responses:
+        '201':
+          description: ''
+      tags:
+        - ot
+    parameters: []
+  /ot/api/join/waitlist/:
+    post:
+      operationId: ot_api_join_waitlist_create
+      description: ''
+      parameters: []
+      responses:
+        '201':
+          description: ''
+      tags:
+        - ot
+    parameters: []
+  /ot/api/unsub/vax-tracker/:
+    post:
+      operationId: ot_api_unsub_vax-tracker_create
+      description: ''
+      parameters: []
+      responses:
+        '201':
+          description: ''
+      tags:
+        - ot
+    parameters: []
+  /profile/doctor/update-regid/:
+    post:
+      operationId: profile_doctor_update-regid_create
+      description: ''
+      parameters: []
+      responses:
+        '201':
+          description: ''
+      tags:
+        - profile
+    parameters: []
+  /profile/email/update/otpsend/:
+    post:
+      operationId: profile_email_update_otpsend_create
+      description: ''
+      parameters: []
+      responses:
+        '201':
+          description: ''
+      tags:
+        - profile
+    parameters: []
+  /profile/email/update/otpverify/:
+    post:
+      operationId: profile_email_update_otpverify_create
+      description: ''
+      parameters: []
+      responses:
+        '201':
+          description: ''
+      tags:
+        - profile
+    parameters: []
+  /profile/phone/update/otpsend/:
+    post:
+      operationId: profile_phone_update_otpsend_create
+      description: ''
+      parameters: []
+      responses:
+        '201':
+          description: ''
+      tags:
+        - profile
+    parameters: []
+  /profile/phone/update/otpverify/:
+    post:
+      operationId: profile_phone_update_otpverify_create
+      description: ''
+      parameters: []
+      responses:
+        '201':
+          description: ''
+      tags:
+        - profile
+    parameters: []
+definitions:
+  SocialLogin:
+    type: object
+    properties:
+      access_token:
+        title: Access token
+        type: string
+      code:
+        title: Code
+        type: string
+      id_token:
+        title: Id token
+        type: string
+  Login:
+    required:
+      - password
+    type: object
+    properties:
+      username:
+        title: Username
+        type: string
+      email:
+        title: Email
+        type: string
+        format: email
+      password:
+        title: Password
+        type: string
+        minLength: 1
+  PasswordChange:
+    required:
+      - new_password1
+      - new_password2
+    type: object
+    properties:
+      new_password1:
+        title: New password1
+        type: string
+        maxLength: 128
+        minLength: 1
+      new_password2:
+        title: New password2
+        type: string
+        maxLength: 128
+        minLength: 1
+  PasswordReset:
+    required:
+      - email
+    type: object
+    properties:
+      email:
+        title: Email
+        type: string
+        format: email
+        minLength: 1
+  PasswordResetConfirm:
+    required:
+      - new_password1
+      - new_password2
+      - uid
+      - token
+    type: object
+    properties:
+      new_password1:
+        title: New password1
+        type: string
+        maxLength: 128
+        minLength: 1
+      new_password2:
+        title: New password2
+        type: string
+        maxLength: 128
+        minLength: 1
+      uid:
+        title: Uid
+        type: string
+        minLength: 1
+      token:
+        title: Token
+        type: string
+        minLength: 1
+  CookieTokenRefresh:
+    type: object
+    properties:
+      refresh:
+        title: Refresh
+        description: WIll override cookie.
+        type: string
+        minLength: 1
+  TokenVerify:
+    required:
+      - token
+    type: object
+    properties:
+      token:
+        title: Token
+        type: string
+        minLength: 1
+  UserDetails:
+    required:
+      - username
+    type: object
+    properties:
+      pk:
+        title: ID
+        type: integer
+        readOnly: true
+      username:
+        title: Username
+        description: Required. 150 characters or fewer. Letters, digits and @/./+/-/_
+          only.
+        type: string
+        pattern: ^[\w.@+-]+$
+        maxLength: 150
+        minLength: 1
+      email:
+        title: Email address
+        type: string
+        format: email
+        readOnly: true
+        minLength: 1
+      first_name:
+        title: First name
+        type: string
+        maxLength: 150
+      last_name:
+        title: Last name
+        type: string
+        maxLength: 150
+  User:
+    required:
+      - username
+    type: object
+    properties:
+      id:
+        title: ID
+        type: integer
+        readOnly: true
+      last_login:
+        title: Last login
+        type: string
+        format: date-time
+        x-nullable: true
+      is_superuser:
+        title: Superuser status
+        description: Designates that this user has all permissions without explicitly
+          assigning them.
+        type: boolean
+      username:
+        title: Username
+        description: Required. 150 characters or fewer. Letters, digits and @/./+/-/_
+          only.
+        type: string
+        pattern: ^[\w.@+-]+$
+        maxLength: 150
+        minLength: 1
+      first_name:
+        title: First name
+        type: string
+        maxLength: 150
+      last_name:
+        title: Last name
+        type: string
+        maxLength: 150
+      email:
+        title: Email address
+        type: string
+        format: email
+        maxLength: 254
+      is_staff:
+        title: Staff status
+        description: Designates whether the user can log into this admin site.
+        type: boolean
+      is_active:
+        title: Active
+        description: Designates whether this user should be treated as active. Unselect
+          this instead of deleting accounts.
+        type: boolean
+      date_joined:
+        title: Date joined
+        type: string
+        format: date-time
+      groups:
+        description: The groups this user belongs to. A user will get all permissions
+          granted to each of their groups.
+        type: array
+        items:
+          description: The groups this user belongs to. A user will get all permissions
+            granted to each of their groups.
+          type: integer
+        uniqueItems: true
+      user_permissions:
+        description: Specific permissions for this user.
+        type: array
+        items:
+          description: Specific permissions for this user.
+          type: integer
+        uniqueItems: true
+  BasicDetail:
+    required:
+      - user
+      - mobile_no
+    type: object
+    properties:
+      id:
+        title: ID
+        type: integer
+        readOnly: true
+      user:
+        $ref: '#/definitions/User'
+      mobile_no:
+        title: Mobile no
+        type: string
+        pattern: ^[6-9]\d{9}$
+        maxLength: 10
+        minLength: 1
+      gender:
+        title: Gender
+        type: string
+        enum:
+          - M
+          - F
+          - O
+        x-nullable: true
+      DOB:
+        title: DOB
+        type: string
+        format: date
+      age:
+        title: Age
+        type: integer
+        maximum: 2147483647
+        minimum: -2147483648
+        x-nullable: true
+      mesibo_token_id:
+        title: Mesibo token id
+        type: string
+        maxLength: 300
+        x-nullable: true
+      role:
+        title: Role
+        type: integer
+        enum:
+          - 1
+          - 2
+          - 3
+          - 4
+          - 5
+        x-nullable: true
+      first_login:
+        title: First login
+        type: boolean
+      profile_complete:
+        title: Profile complete
+        type: boolean
+      email_verified:
+        title: Email verified
+        type: boolean
+      created_by_doctor:
+        title: Created by doctor
+        type: boolean
+      social_login:
+        title: Social login
+        type: boolean
+      otp_validation_attempts:
+        title: Otp validation attempts
+        type: integer
+        maximum: 2147483647
+        minimum: -2147483648
+      blocked_till:
+        title: Blocked till
+        type: string
+        format: date-time
+        x-nullable: true
+      profile_picture:
+        title: Profile picture
+        type: string
+        readOnly: true
+        x-nullable: true
+        format: uri
+      selected_workspace:
+        title: Selected workspace
+        type: integer
+        x-nullable: true
+      default_workspace:
+        title: Default workspace
+        type: integer
+        x-nullable: true
+  Doctor:
+    required:
+      - profile
+    type: object
+    properties:
+      id:
+        title: ID
+        type: integer
+        readOnly: true
+      profile:
+        $ref: '#/definitions/BasicDetail'
+      registration_id:
+        title: Registration id
+        type: string
+        maxLength: 50
+        x-nullable: true
+      is_available:
+        title: Is available
+        type: boolean
+      verified:
+        title: Verified
+        type: boolean
+      speciality:
+        title: Speciality
+        type: integer
+        x-nullable: true
+      education:
+        type: array
+        items:
+          type: integer
+        uniqueItems: true
+      experience:
+        type: array
+        items:
+          type: integer
+        uniqueItems: true
+  Medication:
+    type: object
+    properties:
+      id:
+        title: ID
+        type: integer
+        readOnly: true
+      drugname:
+        title: Drugname
+        type: string
+        maxLength: 1000
+        x-nullable: true
+      type:
+        title: Type
+        type: string
+        maxLength: 1000
+        x-nullable: true
+  AuthToken:
+    required:
+      - username
+      - password
+    type: object
+    properties:
+      username:
+        title: Username
+        type: string
+        minLength: 1
+      password:
+        title: Password
+        type: string
+        minLength: 1
+      token:
+        title: Token
+        type: string
+        readOnly: true
+        minLength: 1
+  CreateUser:
+    required:
+      - username
+      - password
+    type: object
+    properties:
+      username:
+        title: Username
+        type: string
+        minLength: 1
+      password:
+        title: Password
+        type: string
+        minLength: 1
+      first_name:
+        title: First name
+        type: string
+        maxLength: 150
+      last_name:
+        title: Last name
+        type: string
+        maxLength: 150
+  Email:
+    required:
+      - email
+    type: object
+    properties:
+      email:
+        title: Email
+        type: string
+        format: email
+        minLength: 1
+  PasswordToken:
+    required:
+      - password
+      - token
+    type: object
+    properties:
+      password:
+        title: Password
+        type: string
+        minLength: 1
+      token:
+        title: Token
+        type: string
+        minLength: 1
+  Token:
+    required:
+      - token
+    type: object
+    properties:
+      token:
+        title: Token
+        type: string
+        minLength: 1
+  Patient:
+    required:
+      - profile
+    type: object
+    properties:
+      id:
+        title: ID
+        type: integer
+        readOnly: true
+      profile:
+        $ref: '#/definitions/BasicDetail'
+      address:
+        title: Address
+        type: integer
+        x-nullable: true
+      personal_history:
+        type: array
+        items:
+          type: integer
+        uniqueItems: true
+      social_history:
+        type: array
+        items:
+          type: integer
+        uniqueItems: true
