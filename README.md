@@ -410,3 +410,7 @@ This project is open source and available for educational purposes. Feel free to
 **Note:** This repository is actively maintained and updated with new algorithms. Star ⭐ the repository to stay updated with new additions!
 
 For questions, suggestions, or issues, please open an issue on GitHub.
+
+---
+
+*This README documentation is authored by Aman Verma.*
